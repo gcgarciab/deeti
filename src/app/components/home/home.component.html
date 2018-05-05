@@ -1,0 +1,42 @@
+<div class="deetiForm">
+    <div class="form-inputs">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Please, enter your text. " class="form-control" [formControl]="inputValue" (paste)="false">
+        </mat-form-field>
+        <button mat-button class="submitButton" matTooltip="{{ isValid() ? null : 'Algo está mal !' }}" [disabled]="!isValid()" (click)="testWords()">Test</button>
+    </div>
+
+    <div *ngIf="words.length > 0" class="container">
+        <h3 class="subtitle">Words</h3>
+        <div class="wordsResult">
+            <div *ngFor="let word of words" class="result col-md-2">
+                <p class="word" [class.hasError]="(deetiService.wordBack[word] | async)?.error">
+                    {{word}}
+                    <!-- {{ (deetiService.wordBack[word] | async)?.message }} -->
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="categories.length > 0" class="container">
+        <h3 class="subtitle">Token</h3>
+        <div class="wordsResult">
+            <div *ngFor="let category of categories" class="result col-md-2">
+                <p class="word">
+                    {{category}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="sentences.length > 0" class="container">
+        <h3 class="subtitle">Sentences(Token)</h3>
+        <div class="wordsResult">
+            <div *ngFor="let sentence of sentences" class="result col-md-2">
+                <p class="word">
+                    {{sentence}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
