@@ -11,11 +11,13 @@ import { DeetiService } from './services/deeti.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MapToIterablePipe } from './pipes/map-to-iterable.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    MapToIterablePipe
   ],
   imports: [
     BrowserModule,

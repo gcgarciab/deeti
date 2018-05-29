@@ -20,6 +20,7 @@
             .word {
                 border: 1px solid #c3c3c3;
                 color: #4FA846;
+                display: block;
                 font-family: 'Lato';
                 font-size: 16px;
                 line-height: 1.3;
@@ -30,6 +31,74 @@
             .hasError {
                 color: #DC4245;
                 font-family: 'Lato-Bold';
+            }
+        }
+        .sentence {
+            display: block;
+            margin-bottom: 15px;
+            .word_sentence {
+                display: inline-block;
+                .word {
+                    border: 1px solid #c3c3c3;
+                    color: #4FA846;
+                    display: block;
+                    font-family: 'Lato';
+                    font-size: 16px;
+                    line-height: 1.3;
+                    margin: 3px 3px 3px 0;
+                    padding: 5px 15px;
+                    text-align: center;
+                }
+            }
+            .test_result {
+                .word {
+                    color: #000;
+                }
+                .concordanyError {
+                    background-color: #93ff87;
+                }
+                .capitalizeError {
+                    background-color: #ff7d6a;
+                }
+                .syntaxError {
+                    background-color: #3eacdb;
+                }
+                .ortographyError {
+                    background-color: #ff454c;
+                }
+            }
+            &:last-child {
+                margin-bottom: 10px;
+            }
+        }
+    }
+    .error {
+        margin-top: 20px;
+        .err_subtitle {
+            font-family: 'Lato';
+            font-size: 17px;
+            margin: 0;
+            padding: 0px 5px 5px;
+        }
+        .words_container {
+            display: inline-block;
+            margin-bottom: 15px;
+            .word_error {
+                display: inline-block;
+                .word {
+                    border: 1px solid #c3c3c3;
+                    color: #000;
+                    display: block;
+                    font-family: 'Lato';
+                    font-size: 16px;
+                    line-height: 1.3;
+                    margin: 3px 3px 3px 0;
+                    padding: 5px 15px;
+                    text-align: center;
+                }
+                .ortographyError {
+                    background-color: #ff454c;
+                }
             }
         }
     }
@@ -73,6 +142,89 @@
                 border: 1px solid #999999;
                 color: #fff;
                 cursor: default;
+            }
+        }
+    }
+    .categories,
+    .items {
+        .item {
+            background-color: #f1f1f1;
+            float: left;
+            font-family: 'Lato-Bold';
+            line-height: 2.5;
+            text-align: center;
+        }
+        .width_1 {
+            width: calc((100% / 10));
+        }
+        .width_2 {
+            width: calc((100% / 5));
+        }
+        .width_5 {
+            width: calc((100% / 2));
+        }
+        .item_color,
+        .item_category,
+        .item_subcategory,
+        .item_description {
+            border-bottom: 1px solid #f1f1f1;
+            float: left;
+            font-family: 'Lato-Light';
+            font-size: 13px;
+            line-height: 1.2;
+            height: 35px;
+            padding: 7px 0;
+            position: relative;
+            text-align: center;
+            &::before {
+                background-color: #f1f1f1;
+                content: '';
+                height: 100%;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 1px;
+            }
+        }
+        .item_description {
+            text-align: left;
+            .text {
+                line-height: 1.2;
+                margin: 0;
+                padding-left: 20px;
+            }
+        }
+        .item_color {
+            .ortographyError,
+            .capitalizeError,
+            .syntaxError,
+            .concordanyError {
+                background-color: #ff454c;
+                height: 15px;
+                left: 0;
+                margin: 0 auto;
+                position: absolute;
+                right: 0;
+                top: 10px;
+                width: 15px;
+            }
+            .capitalizeError {
+                background-color: #ff7d6a;
+            }
+            .syntaxError {
+                background-color: #3eacdb;
+            }
+            .concordanyError {
+                background-color: #93ff87;
+            }
+            &::after {
+                background-color: #f1f1f1;
+                content: '';
+                height: 100%;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 1px;
             }
         }
     }

@@ -64,6 +64,10 @@ export class DeetiService {
     // console.log(this.wordBack);
   }
 
+  // getOrthographyErrors() {
+  //   console.log(this.wordBack);
+  // }
+
   gateTest(words: any) {
     const httpOptions = {
       headers: new HttpHeaders({

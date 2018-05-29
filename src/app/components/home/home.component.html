@@ -1,15 +1,15 @@
 <div class="deetiForm">
     <div class="form-inputs">
         <mat-form-field class="full-width">
-            <input matInput placeholder="Please, enter your text. " class="form-control" [formControl]="inputValue" (paste)="false">
+            <input matInput placeholder="Please, enter your text. " class="form-control" [formControl]="inputValue" (paste)="true">
         </mat-form-field>
-        <button mat-button class="submitButton" matTooltip="{{ isValid() ? null : 'Algo está mal !' }}" [disabled]="!isValid()" (click)="testWords()">Test</button>
+        <button mat-button class="submitButton" matTooltip="{{ isValid() ? null : 'Algo está mal !' }}" [disabled]="!isValid()" (click)="runTest()">Test</button>
     </div>
 
     <div *ngIf="words.length > 0" class="container">
         <h3 class="subtitle">Words</h3>
         <div class="wordsResult">
-            <div *ngFor="let word of words" class="result col-md-2">
+            <div *ngFor="let word of words" class="result width_2">
                 <p class="word" [class.hasError]="(deetiService.wordBack[word] | async)?.error">
                     {{word}}
                     <!-- {{ (deetiService.wordBack[word] | async)?.message }} -->
@@ -18,10 +18,77 @@
         </div>
     </div>
 
+    <div class="container">
+        <h3 class="subtitle">Types of errors</h3>
+        <div class="categories clearfix">
+            <div class="item width_1">Color</div>
+            <div class="item width_2">Category</div>
+            <div class="item width_2">Subcategory</div>
+            <div class="item width_5">Acceptance Requirements</div>
+        </div>
+        <div class="items clearfix">
+            <div class="item_color width_1">
+                <span class="ortographyError"></span>
+            </div>
+            <div class="item_category width_2">
+                Orthography
+            </div>
+            <div class="item_subcategory width_2">
+                Non-existent word
+            </div>
+
+            <div class="item_description width_5">
+                <p class="text">Word exists in the dictionary.</p>
+            </div>
+        </div>
+        <div class="items clearfix">
+            <div class="item_color width_1">
+                <span class="capitalizeError"></span>
+            </div>
+            <div class="item_category width_2">
+                Orthography
+            </div>
+            <div class="item_subcategory width_2">
+                Capitalization
+            </div>
+            <div class="item_description width_5">
+                <p class="text">The word is the initial in the text <br> The word is after a point</p>
+            </div>
+        </div>
+        <div class="items clearfix">
+            <div class="item_color width_1">
+                <span class="syntaxError"></span>
+            </div>
+            <div class="item_category width_2">
+                Syntax
+            </div>
+            <div class="item_subcategory width_2">
+                Word repetition
+            </div>
+            <div class="item_description width_5">
+                <p class="text">Two equal words, one immediately followed by the other.</p>
+            </div>
+        </div>
+        <div class="items clearfix">
+            <div class="item_color width_1">
+                <span class="concordanyError"></span>
+            </div>
+            <div class="item_category width_2">
+                Concordance
+            </div>
+            <div class="item_subcategory width_2">
+                Verbal Concordance
+            </div>
+            <div class="item_description width_5">
+                <p class="text">The grammatical structure of times in English is validated. Associating the person (subject) with verbal time.</p>
+            </div>
+        </div>
+    </div>
+
     <div *ngIf="categories.length > 0" class="container">
         <h3 class="subtitle">Token</h3>
         <div class="wordsResult">
-            <div *ngFor="let category of categories" class="result col-md-2">
+            <div *ngFor="let category of categories" class="result width_2">
                 <p class="word">
                     {{category}}
                 </p>
@@ -32,10 +99,33 @@
     <div *ngIf="sentences.length > 0" class="container">
         <h3 class="subtitle">Sentences(Token)</h3>
         <div class="wordsResult">
-            <div *ngFor="let sentence of sentences" class="result col-md-2">
-                <p class="word">
-                    {{sentence}}
-                </p>
+            <div *ngFor="let sentence of sentences" class="sentence">
+                <div *ngFor="let word of sentence" class="word_sentence">
+                    <span class="word">{{word}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="(text | json) !== ({} | json)" class="container">
+        <h3 class="subtitle">Sentences(Errors)</h3>
+        <div class="wordsResult">
+            <div *ngFor="let sentence of text | mapToIterable" class="sentence">
+                <div *ngFor="let word of sentence.val; let i = index" class="word_sentence test_result">
+                    <span class="word" [class.concordanyError]="word.indexOf('concordancyError') !== -1" [class.capitalizeError]="word.indexOf('capitalizeError') !== -1" [class.syntaxError]="word.indexOf('syntaxError') !== -1">
+                        {{word[0]}}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="error">
+            <h4 class="err_subtitle">Non-existent words</h4>
+            <div *ngFor="let errors of orthographyErrors | mapToIterable" class="words_container">
+                <div *ngFor="let word of errors.val | mapToIterable" class="word_error">
+                    <span *ngIf="word.key === 'value' && word.val.error === true" class="word ortographyError">
+                    {{word.val.word}} </span>
+                </div>
             </div>
         </div>
     </div>
